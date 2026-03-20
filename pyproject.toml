@@ -5,9 +5,10 @@ description = "Markdown to CoreUI-styled HTML converter using mistune"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = ["mistune>=0.11"]
+license = "MIT"
 
 [project.urls]
-Repository = "https://github.com/example/md2coreui"
+Repository = "https://github.com/Yuego/md2coreui"
 
 [build-system]
 requires = ["setuptools>=61.0"]
