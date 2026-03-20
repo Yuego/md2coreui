@@ -1,0 +1,17 @@
+[project]
+name = "md2coreui"
+version = "1.0.0"
+description = "Markdown to CoreUI-styled HTML converter using mistune"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["mistune>=0.11"]
+
+[project.urls]
+Repository = "https://github.com/example/md2coreui"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
