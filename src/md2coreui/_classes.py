@@ -13,7 +13,7 @@ CLASSES: dict[str, str] = {
     "code_inline": "text-monospace bg-light px-1 rounded",
     "pre": "highlight mb-3",
     "table": "table table-striped table-hover",
-    "thead": "table-dark",
+    "thead": "table-light",
     "th": "text-nowrap",
     "hr": "my-4",
     "ul": "list-unstyled ps-3",
