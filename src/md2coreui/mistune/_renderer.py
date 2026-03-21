@@ -1,5 +1,5 @@
 import mistune
-from ._classes import CLASSES
+from md2coreui._classes import CLASSES
 
 
 class MistuneRenderer(mistune.HTMLRenderer):

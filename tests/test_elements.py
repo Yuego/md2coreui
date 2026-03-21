@@ -1,4 +1,6 @@
 import pytest
+
+mistune = pytest.importorskip("mistune")
 from md2coreui import convert
 from md2coreui._classes import CLASSES
 
