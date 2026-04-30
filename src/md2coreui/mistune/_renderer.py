@@ -11,13 +11,17 @@ class MistuneRenderer(mistune.HTMLRenderer):
         return f'<p class="{CLASSES["p"]}">{text}</p>\n'
 
     def link(self, text: str, url: str, title: str | None = None) -> str:
-        title_attr = f' title="{title}"' if title else ""
-        return f'<a href="{url}" class="{CLASSES["a"]}"{title_attr}>{text}</a>'
+        # safe_url отбрасывает javascript:/vbscript:/data: при
+        # allow_harmful_protocols=False (см. create_renderer ниже).
+        safe_href = self.safe_url(url)
+        title_attr = f' title="{mistune.escape(title)}"' if title else ""
+        return f'<a href="{safe_href}" class="{CLASSES["a"]}"{title_attr}>{text}</a>'
 
     def image(self, text: str, url: str, title: str | None = None) -> str:
-        alt_attr = f' alt="{text}"' if text else ""
-        title_attr = f' title="{title}"' if title else ""
-        return f'<img src="{url}" class="{CLASSES["img"]}"{alt_attr}{title_attr}>'
+        safe_src = self.safe_url(url)
+        alt_attr = f' alt="{mistune.escape(text)}"' if text else ""
+        title_attr = f' title="{mistune.escape(title)}"' if title else ""
+        return f'<img src="{safe_src}" class="{CLASSES["img"]}"{alt_attr}{title_attr}>'
 
     def codespan(self, text: str) -> str:
         return f'<code class="{CLASSES["code_inline"]}">{text}</code>'
@@ -87,4 +91,10 @@ class MistuneRenderer(mistune.HTMLRenderer):
 
 
 def create_renderer() -> mistune.HTMLRenderer:
-    return MistuneRenderer(escape=False, allow_harmful_protocols=True)
+    # allow_harmful_protocols=False (default): mistune.safe_url() блокирует
+    # javascript:/vbscript:/data: схемы. Раньше True пропускал XSS через
+    # markdown-ссылки [click](javascript:alert(1)).
+    # escape=False оставлен — наши *_renderer методы сами строят HTML и
+    # должны экранировать атрибуты вручную (mistune.escape применяется в
+    # link/image/etc).
+    return MistuneRenderer(escape=False, allow_harmful_protocols=False)
