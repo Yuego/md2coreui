@@ -16,8 +16,5 @@ all = ["mistune>=0.11", "markdown>=3.4"]
 Repository = "https://github.com/Yuego/md2coreui"
 
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools.packages.find]
-where = ["src"]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
